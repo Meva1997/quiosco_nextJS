@@ -14,7 +14,8 @@ interface Store {
 export const useStore = create<Store>((set, get) => ({
   order: [],
   addToOrder: (product) => {
-    const { categoryId, image, ...data } = product; // Exclude categoryId and image from the order item
+    // categoryId, image, // and other properties are not needed in the order item
+    const { ...data } = product; // Exclude categoryId and image from the order item
     let order: OrderItem[] = [];
     if (get().order.find((item) => item.id === product.id)) {
       order = get().order.map((item) =>

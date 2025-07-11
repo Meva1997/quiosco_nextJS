@@ -1,4 +1,7 @@
-import { prisma } from "@/src/lib/prisma";
+// import { prisma } from "@/src/lib/prisma";
+import { PrismaClient } from "@/generated/prisma"; // Importing PrismaClient from the generated path
+
+const prisma = new PrismaClient();
 
 export async function GET() {
   const orders = await prisma.order.findMany({

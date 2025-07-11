@@ -2,8 +2,11 @@ import EditProductForm from "@/components/products/EditProductForm";
 import ProductForm from "@/components/products/ProductForm";
 import GoBackButton from "@/components/ui/GoBackButton";
 import Heading from "@/components/ui/Heading";
-import { prisma } from "@/src/lib/prisma";
+import { PrismaClient } from "@/generated/prisma";
+// import { prisma } from "@/src/lib/prisma";
 import { notFound } from "next/navigation";
+
+const prisma = new PrismaClient();
 
 async function getProductById(id: number) {
   const product = await prisma.product.findUnique({
@@ -22,10 +25,10 @@ async function getProductById(id: number) {
 export default async function EditProductsPage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
-  const awaitedParams = await params;
-  const product = await getProductById(+awaitedParams.id);
+  const resolvedParams = await params; // Usa `await` para resolver `params`
+  const product = await getProductById(+resolvedParams.id);
 
   return (
     <>

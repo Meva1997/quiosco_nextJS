@@ -1,6 +1,9 @@
-import { prisma } from "../../src/lib/prisma";
+// import { prisma } from "../../src/lib/prisma";
+import { PrismaClient } from "@/generated/prisma"; // Importing PrismaClient from the generated path
 import CategoryIcon from "../ui/CategoryIcon";
 import Logo from "../ui/Logo";
+
+const prisma = new PrismaClient();
 
 async function getCategories() {
   return await prisma.category.findMany();

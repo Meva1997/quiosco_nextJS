@@ -2,9 +2,12 @@ import ProductSearchForm from "@/components/products/ProductSearchForm";
 import ProductsPagination from "@/components/products/ProductsPagination";
 import ProductTable from "@/components/products/ProductsTable";
 import Heading from "@/components/ui/Heading";
-import { prisma } from "@/src/lib/prisma";
+// import { prisma } from "@/src/lib/prisma";
+import { PrismaClient } from "@/generated/prisma"; // Importing PrismaClient from the generated path
 import Link from "next/link";
 import { redirect } from "next/navigation";
+
+const prisma = new PrismaClient();
 
 async function productsCount() {
   return await prisma.product.count();
@@ -29,10 +32,10 @@ export type ProductsWithCategory = Awaited<ReturnType<typeof getProducts>>;
 export default async function ProductsPage({
   searchParams,
 }: {
-  searchParams: { page: string };
+  searchParams: Promise<{ page: string }>;
 }) {
-  const awaitedSearchParams = await searchParams;
-  const page = +awaitedSearchParams.page || 1;
+  const resolvedSearchParams = await searchParams; // Resolve the searchParams promise
+  const page = +resolvedSearchParams.page || 1; // Get the page number from
   const pageSize = 10;
 
   // If the page number is less than 1, redirect to the first page

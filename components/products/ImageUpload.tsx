@@ -14,7 +14,7 @@ export default function ImageUpload({ image }: { image: string | undefined }) {
       onSuccess={(result, { widget }) => {
         if (result.event === "success") {
           widget.close();
-          // // @ts-ignore
+          // @ts-expect-error: TypeScript does not recognize the structure of the result object from the Cloudinary widget
           setImageUrl(result.info.secure_url);
         }
       }}

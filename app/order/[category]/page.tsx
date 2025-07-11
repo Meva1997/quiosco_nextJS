@@ -1,6 +1,9 @@
 import ProductCard from "@/components/products/ProductCard";
 import Heading from "@/components/ui/Heading";
-import { prisma } from "@/src/lib/prisma";
+// import { prisma } from "@/src/lib/prisma";
+import { PrismaClient } from "@/generated/prisma"; // Importing PrismaClient from the generated path
+
+const prisma = new PrismaClient();
 
 async function getProducts(category: string) {
   try {
@@ -21,7 +24,7 @@ async function getProducts(category: string) {
 export default async function OrderPage({
   params,
 }: {
-  params: { category: string };
+  params: Promise<{ category: string }>;
 }) {
   // Asegúrate de que params.category esté disponible
   const awaitedParams = await params;
