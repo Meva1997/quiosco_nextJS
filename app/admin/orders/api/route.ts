@@ -3,6 +3,8 @@ import { prisma } from "@/src/lib/prisma";
 // Esta función obtiene las órdenes pendientes desde la base de datos
 // y las devuelve como un JSON.
 
+export const dynamic = "force-dynamic"; // Forzar la generación dinámica de la ruta
+
 export async function GET() {
   const orders = await prisma.order.findMany({
     where: {

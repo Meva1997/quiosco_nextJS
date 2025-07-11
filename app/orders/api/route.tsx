@@ -1,6 +1,8 @@
 // import { prisma } from "@/src/lib/prisma";
 import { PrismaClient } from "@/generated/prisma"; // Importing PrismaClient from the generated path
 
+export const dynamic = "force-dynamic";
+
 const prisma = new PrismaClient();
 
 export async function GET() {
